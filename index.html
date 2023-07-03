@@ -14,7 +14,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"/>
 
 </head>
-<body>
+<body onload="preload()">
+    <div id="loading">
+
+    
+    <section class="lll">
+        <div class="loaderx">
+          <div class="upperx bollx"></div>
+          <div class="rightx bollx"></div>
+          <div class="lowerx bollx"></div>
+          <div class="leftx bollx"></div>
+        </div>
+      </section>
+    
+</div>
+
+
+    
     <div class="scroll-up-btn">
         <i class="fas fa-angle-up"></i>
     </div>
@@ -269,5 +285,13 @@
     </footer>
 
     <script src="script.js"></script>
+
+       <script>
+        var preloader= document.getElementById('loading');
+        function preload(){
+            preloader.style.display='none'
+        }
+    </script>
+    
 </body>
 </html>
