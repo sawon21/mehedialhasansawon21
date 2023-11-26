@@ -84,8 +84,8 @@ body{
 }
 .center .sub_title{
   color: #fff;
-  font-size: 15px;
-  font-weight: 250;
+  font-size: 18px;
+  font-weight: 270;
 }
 .center .sub_title marquee {
   color: yellow;
@@ -93,7 +93,7 @@ body{
 .center .btns{
   margin-top: 3px;
     font-size: 35px;
-  font-weight: 250;
+  font-weight: 350;
 }
 .center .btns a{
     position: relative;
