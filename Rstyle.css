@@ -93,13 +93,13 @@ body{
 .center .btns{
   margin-top: 3px;
     font-size: 35px;
-  font-weight: 270;
+  font-weight: 250;
 }
 .center .btns a{
     position: relative;
     display: inline-block;
     padding: 25px 30px;
-    margin: 40px 0;
+    margin: 28px 0;
     color: #03e9f4;
     text-decoration: none;
     text-transform: uppercase;
