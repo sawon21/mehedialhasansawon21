@@ -79,13 +79,13 @@ body{
 }
 .center .title{
   color: #fff;
-  font-size: 34px;
-  font-weight: 190;
+  font-size: 30px;
+  font-weight: 170;
 }
 .center .sub_title{
   color: #fff;
-  font-size: 20px;
-  font-weight: 300;
+  font-size: 15px;
+  font-weight: 250;
 }
 .center .sub_title marquee {
   color: yellow;
@@ -93,7 +93,7 @@ body{
 .center .btns{
   margin-top: 10px;
     font-size: 35px;
-  font-weight: 400;
+  font-weight: 300;
 }
 .center .btns a{
     position: relative;
