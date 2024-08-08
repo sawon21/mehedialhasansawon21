@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IQRA Media Platform</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #9999;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            background-color: #E05B7A;
+            color: white;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 24px;
+            padding-left: 20px;
+        }
+
+        nav .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        nav input[type="text"] {
+            padding: 8px;
+            border: none;
+            border-radius: 20px;
+            margin-right: 10px;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+
+        nav input[type="text"]:focus {
+            background-color: #dddd;
+        }
+
+        nav .profile-button {
+            background-color: #0F6296;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        nav .profile-button:hover {
+            background-color: #2851A3;
+        }
+
+        /* Profile Section */
+        #profileSection {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, 0);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        #profileSection input[type="text"],
+        #profileSection input[type="file"] {
+            display: block;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px;
+        }
+
+        #profileSection button {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #profileSection button:hover {
+            background-color: #365899;
+        }
+
+        /* Feed */
+        #feed {
+            margin-top: 20px;
+        }
+
+        /* Post Styles */
+        .post {
+            background-color:#fff;
+            border: 1px solid #888;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .delete-button {
+            background: none;
+            border: none;
+            color: #f44336;
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            transition: color 0.3s;
+        }
+
+        .delete-button:hover {
+            color: #c62828;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 2px solid #4267B2;
+            object-fit: cover;
+            transition: border-color 0.3s;
+        }
+
+        .profile-pic:hover {
+            border-color: #2851A3;
+        }
+
+        .profile-name {
+            font-weight: bold;
+            color: #4267B2;
+        }
+
+        .post-content {
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s;
+        }
+
+        .post-image:hover {
+            opacity: 0.9;
+        }
+
+        .post-time {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .like-button,
+        .comment-button {
+            cursor: pointer;
+            color: #888;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: color 0.3s;
+        }
+
+        .like-button:hover,
+        .comment-button:hover {
+            color: blue;
+        }
+
+        .comment-box {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+            display: none;
+        }
+
+        .comment {
+            border-top: 1px solid #ddd;
+            padding: 5px 0;
+            color: #555;
+            transition: background-color 0.3s;
+        }
+
+        .comment:hover {
+            background-color: #f9f9f9;
+        }
+
+        .comment-time {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        button {
+            background-color:;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color:;
+        }
+        
+ buttons {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        buttons:hover {
+            background-color: #365899;
+        }       
+        
+        #postButton {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+    #postButton:hover {
+            background-color: #365899;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>IQRA</h1>
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search...">
+            <button id="profileButton" class="profile-button">Profile</button>
+        </div>
+    </nav>
+    <div class="container">
+        <textarea id="postContent" placeholder="What's on your mind?"></textarea>
+        <input type="file" id="postImage" accept="image/*">
+        <button id="postButton">Post</button>
+        <div id="feed"></div>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="profileSection">
+        <h2>Edit Profile</h2>
+        <input type="text" id="profileName" placeholder="Enter your name">
+        <input type="file" id="profilePicture" accept="image/*">
+        <button id="saveProfile">Save</button>
+        <button id="closeProfile">Close</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const postButton = document.getElementById('postButton');
+            const postContent = document.getElementById('postContent');
+            const postImage = document.getElementById('postImage');
+            const feed = document.getElementById('feed');
+            const searchBar = document.getElementById('searchBar');
+            const profileButton = document.getElementById('profileButton');
+            const profileSection = document.getElementById('profileSection');
+            const closeProfile = document.getElementById('closeProfile');
+            const saveProfile = document.getElementById('saveProfile');
+            const profileName = document.getElementById('profileName');
+            const profilePicture = document.getElementById('profilePicture');
+            
+            let userProfile = {
+                name: '',
+                picture: ''
+            };
+
+            postButton.addEventListener('click', () => {
+const content = postContent.value.trim();
+                const imageFile = postImage.files[0];
+
+                if (content || imageFile) {
+                    const reader = new FileReader();
+                    const time = new Date().toLocaleString();
+
+                    reader.onloadend = function () {
+                        const imageUrl = imageFile ? reader.result : '';
+                        const post = {
+                            content: content,
+                            imageUrl: imageUrl,
+                            time: time,
+                            likes: 0,
+                            comments: []
+                        };
+
+                        let posts = JSON.parse(localStorage.getItem('posts')) || [];
+                        posts.push(post);
+                        localStorage.setItem('posts', JSON.stringify(posts));
+
+                        displayPost(post);
+                        postContent.value = '';
+                        postImage.value = ''; // Clear the file input
+                    };
+
+                    if (imageFile) {
+                        reader.readAsDataURL(imageFile);
+                    } else {
+                        reader.onloadend();
+                    }
+                }
+            });
+
+            function displayPost(post) {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post');
+
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete-button');
+                deleteButton.textContent = '❌';
+                deleteButton.addEventListener('click', () => deletePost(post));
+                postElement.appendChild(deleteButton);
+
+                const profileSection = document.createElement('div');
+                profileSection.classList.add('profile-section');
+
+                const profilePic = document.createElement('img');
+                profilePic.classList.add('profile-pic');
+                profilePic.src = userProfile.picture || 'default-profile-pic.jpg'; // Replace with default image if none
+                profilePic.alt = 'Profile Picture';
+
+                const profileName = document.createElement('p');
+                profileName.classList.add('profile-name');
+                profileName.textContent = userProfile.name || 'Anonymous';
+
+                profileSection.appendChild(profilePic);
+                profileSection.appendChild(profileName);
+
+                postElement.appendChild(profileSection);
+
+                const contentElement = document.createElement('p');
+                contentElement.classList.add('post-content');
+                contentElement.textContent = post.content;
+
+                if (post.imageUrl) {
+                    const imageElement = document.createElement('img');
+                    imageElement.classList.add('post-image');
+                    imageElement.src = post.imageUrl;
+                    postElement.appendChild(imageElement);
+                }
+
+                postElement.appendChild(contentElement);
+
+                const timeElement = document.createElement('p');
+                timeElement.classList.add('post-time');
+                timeElement.textContent = `Posted on: ${post.time}`;
+                postElement.appendChild(timeElement);
+
+                const postActions = document.createElement('div');
+                postActions.classList.add('post-actions');
+
+                const likeButton = document.createElement('button');
+                likeButton.classList.add('like-button');
+                likeButton.textContent = `❤️ ${post.likes}`;
+                likeButton.addEventListener('click', () => {
+                    post.likes += 1;
+                    likeButton.textContent = `❤️ ${post.likes}`;
+                    updatePostInLocalStorage(post);
+                });
+                postActions.appendChild(likeButton);
+
+                const commentButton = document.createElement('button');
+                commentButton.classList.add('comment-button');
+                commentButton.textContent = '💬';
+                commentButton.addEventListener('click', () => {
+                    const commentBox = postElement.querySelector('.comment-box');
+                    commentBox.style.display = commentBox.style.display === 'none' ? 'block' : 'none';
+                });
+                postActions.appendChild(commentButton);
+
+                postElement.appendChild(postActions);
+
+                const commentBox = document.createElement('div');
+                commentBox.classList.add('comment-box');
+                commentBox.style.display = 'none';
+
+                const commentTextarea = document.createElement('textarea');
+                commentTextarea.placeholder = 'Add a comment...';
+                commentBox.appendChild(commentTextarea);
+
+                const commentSubmitButton = document.createElement('buttons');
+                commentSubmitButton.textContent = 'Submit';
+                commentSubmitButton.addEventListener('click', () => {
+                    const commentText = commentTextarea.value.trim();
+                    if (commentText) {
+                        post.comments.push({
+                            text: commentText,
+                            time: new Date().toLocaleString()
+                        });
+                        updatePostInLocalStorage(post);
+                        displayComments(post, commentBox);
+                        commentTextarea.value = '';
+                    }
+                });
+                commentBox.appendChild(commentSubmitButton);
+
+                postElement.appendChild(commentBox);
+
+                feed.appendChild(postElement);
+
+                displayComments(post, commentBox);
+            }
+
+            function displayComments(post, commentBox) {
+                const commentsContainer = commentBox.querySelector('.comments-container');
+                if (commentsContainer) {
+                    commentsContainer.remove();
+                }
+
+                const newCommentsContainer = document.createElement('div');
+                newCommentsContainer.classList.add('comments-container');
+                commentBox.appendChild(newCommentsContainer);
+
+                post.comments.forEach(comment => {
+                    const commentElement = document.createElement('div');
+                    commentElement.classList.add('comment');
+
+                    const commentText = document.createElement('p');
+                    commentText.textContent = comment.text;
+                    commentElement.appendChild(commentText);
+
+                    const commentTime = document.createElement('p');
+                    commentTime.classList.add('comment-time');
+                    commentTime.textContent = `Posted on: ${comment.time}`;
+                    commentElement.appendChild(commentTime);
+
+                    newCommentsContainer.appendChild(commentElement);
+                });
+            }
+
+            function updatePostInLocalStorage(updatedPost) {
+                let posts = JSON.parse(localStorage.getItem('posts')) || [];
+                posts = posts.map(post => post.time === updatedPost.time ? updatedPost : post);
+                localStorage.setItem('posts', JSON.stringify(posts));
+            }
+
+            function deletePost(postToDelete) {
+                let posts = JSON.parse(localStorage.getItem('posts')) || [];
+                posts = posts.filter(post => post.time !== postToDelete.time);
+                localStorage.setItem('posts', JSON.stringify(posts));
+                feed.innerHTML = ''; // Clear feed
+                posts.forEach(post => displayPost(post)); // Re-display posts
+            }
+
+            // Profile Section
+            profileButton.addEventListener('click', () => {
+                profileSection.style.display = 'block';
+                profileName.value = userProfile.name || '';
+                if (userProfile.picture) {
+                    profilePicture.src = userProfile.picture;
+                }
+            });
+
+            closeProfile.addEventListener('click', () => {
+                profileSection.style.display = 'none';
+            });
+
+            saveProfile.addEventListener('click', () => {
+                userProfile.name = profileName.value;
+                if (profilePicture.files[0]) {
+                    const reader = new FileReader();
+                    reader.onloadend = function () {
+                        userProfile.picture = reader.result;
+                        localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                        profileSection.style.display = 'none';
+                        updateProfileInPosts();
+                    };
+                    reader.readAsDataURL(profilePicture.files[0]);
+                } else {
+                    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+                    profileSection.style.display = 'none';
+                    updateProfileInPosts();
+                }
+            });
+
+            function updateProfileInPosts() {
+                const posts = JSON.parse(localStorage.getItem('posts')) || [];
+                feed.innerHTML = ''; // Clear feed
+                posts.forEach(post => displayPost(post)); // Re-display posts
+            }
+
+            // Load posts and user profile when page loads
+            function loadPosts() {
+                let posts = JSON.parse(localStorage.getItem('posts')) || [];
+                posts.forEach(post => displayPost(post));
+            }
+
+            function loadProfile() {
+                userProfile = JSON.parse(localStorage.getItem('userProfile')) || {};
+                if (userProfile.picture) {
+                    profilePicture.src = userProfile.picture;
+                }
+            }
+
+            loadPosts();
+            loadProfile();
+
+            // Search functionality
+            searchBar.addEventListener('input', () => {
+                const searchTerm = searchBar.value.toLowerCase();
+                const posts = document.querySelectorAll('.post');
+                posts.forEach(post => {
+                    const content = post.querySelector('.post-content').textContent.toLowerCase();
+                    if (content.includes(searchTerm)) {
+                        post.style.display = 'block';
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
